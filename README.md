@@ -1,2 +1,2 @@
-# AplicadaIII
-Proyecto para Estadistica 
+# Aplicada III
+Proyecto para Estadistica Aplicada III
