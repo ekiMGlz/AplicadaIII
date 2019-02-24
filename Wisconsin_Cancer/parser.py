@@ -63,11 +63,19 @@ df_transform["Score 1"] = score_1cmpt
 df_transform["Score 2"] = score_2cmpt
 
 # Grafica Scatter de Componente 0 contra Score 1
+plt.title("Componente 0 con Calidad de Aproximacion")
+plt.axhline(0, color="tab:grey", alpha=0.5)
+plt.axvline(0, color="tab:grey", alpha=0.5)
 sns.scatterplot(x="Componente 0", y="Score 1", data=df_transform,
                 hue="Diagnosis")
-plt.show()
+plt.savefig("graphs/cmpt0_score1")
 
 # Grafica a 2 Componentes
-sns.scatterplot(x="Componente 0", y="Componente 1", hue="Diagnosis",
-                data=df_transform)
-plt.show()
+plt.title("Componentes 0 y 1 con Calidad de Aproximacion")
+plt.axhline(0, color="tab:grey", alpha=0.5)
+plt.axvline(0, color="tab:grey", alpha=0.5)
+sns.scatterplot(x="Componente 0", y="Componente 1",
+                data=df_transform, size="Score 2",
+                sizes=(10, 100), alpha=0.6,
+                hue="Diagnosis", legend=False)
+plt.savefig("graphs/cmpt0_cmpt1")
