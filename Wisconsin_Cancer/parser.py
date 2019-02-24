@@ -15,17 +15,21 @@ for col in df.columns[2:]:
 # Scatter Matrix por nucleo de cada variable
 sns.pairplot(df, hue="Diagnosis", vars=list(df)[2:12])
 plt.savefig("graphs/scatter_matrix_n1.png")
+plt.clf()
 
 sns.pairplot(df, hue="Diagnosis", vars=list(df)[12:22])
 plt.savefig("graphs/scatter_matrix_n2.png")
+plt.clf()
 
 sns.pairplot(df, hue="Diagnosis", vars=list(df)[22:32])
 plt.savefig("graphs/scatter_matrix_n3.png")
+plt.clf()
 
 # Scatter Matrix por variable de cada nucleo
 for i in range(2, 12):
     sns.pairplot(df, hue="Diagnosis", vars=list(df)[i::10])
     plt.savefig("graphs/scatter_matrix_v" + str(i - 1) + ".png")
+    plt.clf()
 
 # Analisis en componentes principales
 pca = PCA()
@@ -40,6 +44,7 @@ sns.heatmap(C, cmap=cmap, vmin=-1, vmax=1)
 plt.xlabel("Variables")
 plt.ylabel("Componentes")
 plt.savefig("graphs/participacion_vars_cmpt.png")
+plt.clf()
 
 # Grafica de varianza acumulada
 plt.title("Varianza por Componente")
@@ -49,6 +54,7 @@ plt.ylim([0, 0.5])
 plt.plot(range(30), Var_C, "-o")
 plt.vlines(range(30), 0, Var_C, "tab:orange")
 plt.savefig("graphs/varianza_cmpt.png")
+plt.clf()
 
 # Creacion de DataFrame con dos componentes y score a 1 y 2 componentes
 norms = np.array([np.linalg.norm(row) for row in df.iloc[:, 2:].values])
@@ -67,8 +73,9 @@ plt.title("Componente 0 con Calidad de Aproximacion")
 plt.axhline(0, color="tab:grey", alpha=0.5)
 plt.axvline(0, color="tab:grey", alpha=0.5)
 sns.scatterplot(x="Componente 0", y="Score 1", data=df_transform,
-                hue="Diagnosis")
+                hue="Diagnosis", alpha=0.5)
 plt.savefig("graphs/cmpt0_score1")
+plt.clf()
 
 # Grafica a 2 Componentes
 plt.title("Componentes 0 y 1 con Calidad de Aproximacion")
@@ -76,6 +83,7 @@ plt.axhline(0, color="tab:grey", alpha=0.5)
 plt.axvline(0, color="tab:grey", alpha=0.5)
 sns.scatterplot(x="Componente 0", y="Componente 1",
                 data=df_transform, size="Score 2",
-                sizes=(10, 100), alpha=0.6,
+                sizes=(10, 100), alpha=0.5,
                 hue="Diagnosis", legend=False)
 plt.savefig("graphs/cmpt0_cmpt1")
+plt.clf()
