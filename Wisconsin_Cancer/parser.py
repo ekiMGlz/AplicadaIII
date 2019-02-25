@@ -67,6 +67,9 @@ df_transform["Componente 0"] = X_transform[:, 0]
 df_transform["Componente 1"] = X_transform[:, 1]
 df_transform["Score 1"] = score_1cmpt
 df_transform["Score 2"] = score_2cmpt
+df_transform["Diagnosis con CA"] = np.where(df_transform["Diagnosis"] == "M",
+                                            -df_transform["Score 2"],
+                                            df_transform["Score 2"])
 
 # Grafica Scatter de Componente 0 contra Score 1
 plt.title("Componente 0 con Calidad de Aproximacion")
@@ -78,12 +81,13 @@ plt.savefig("graphs/cmpt0_score1")
 plt.clf()
 
 # Grafica a 2 Componentes
+palette = sns.diverging_palette(220, 28, s=100, b=100, as_cmap=True)
 plt.title("Componentes 0 y 1 con Calidad de Aproximacion")
 plt.axhline(0, color="tab:grey", alpha=0.5)
 plt.axvline(0, color="tab:grey", alpha=0.5)
 sns.scatterplot(x="Componente 0", y="Componente 1",
-                data=df_transform, size="Score 2",
-                sizes=(10, 100), alpha=0.5,
-                hue="Diagnosis", legend=False)
+                data=df_transform, alpha=0.9,
+                palette=palette, hue="Diagnosis con CA",
+                legend=False)
 plt.savefig("graphs/cmpt0_cmpt1")
 plt.clf()
