@@ -38,12 +38,14 @@ Var_C = pca.explained_variance_ratio_
 C = pca.components_
 
 # Grafica departicipacion de variables en componentes
-plt.title("Participacion de Variables en Componentes")
+plt.title("Participación de Variables en Componentes")
 cmap = sns.diverging_palette(10, 240, n=40, as_cmap=True)
-sns.heatmap(C, cmap=cmap, vmin=-1, vmax=1)
+sns.heatmap(C, cmap=cmap, vmin=-1, vmax=1,
+            linewidths=.5, cbar_kws={"shrink": .5},
+            xticklabels=5, yticklabels=5)
 plt.xlabel("Variables")
 plt.ylabel("Componentes")
-plt.savefig("graphs/participacion_vars_cmpt.png")
+plt.savefig("graphs/participacion_vars_cmpt.png", dpi=900)
 plt.clf()
 
 # Grafica de varianza acumulada
@@ -81,7 +83,7 @@ plt.savefig("graphs/cmpt0_score1")
 plt.clf()
 
 # Grafica a 2 Componentes
-palette = sns.diverging_palette(220, 28, s=100, b=100, as_cmap=True)
+palette = sns.diverging_palette(220, 20, as_cmap=True)
 plt.title("Componentes 0 y 1 con Calidad de Aproximacion")
 plt.axhline(0, color="tab:grey", alpha=0.5)
 plt.axvline(0, color="tab:grey", alpha=0.5)
@@ -90,4 +92,18 @@ sns.scatterplot(x="Componente 0", y="Componente 1",
                 palette=palette, hue="Diagnosis con CA",
                 legend=False)
 plt.savefig("graphs/cmpt0_cmpt1")
+plt.clf()
+
+
+cov = df.iloc[:, 2:].corr()
+
+mask = np.zeros_like(cov, dtype=np.bool)
+mask[np.triu_indices_from(mask)] = True
+
+cmap = sns.diverging_palette(10, 220, as_cmap=True)
+
+sns.heatmap(cov, mask=mask, cmap=cmap, vmin=-1.0, vmax=1.0,
+            linewidths=.5, cbar_kws={"shrink": .5},
+            xticklabels=10, yticklabels=10)
+plt.savefig("graphs/cov", dpi=900)
 plt.clf()
