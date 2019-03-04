@@ -107,3 +107,14 @@ sns.heatmap(cov, mask=mask, cmap=cmap, vmin=-1.0, vmax=1.0,
             xticklabels=10, yticklabels=10)
 plt.savefig("graphs/cov", dpi=900)
 plt.clf()
+
+# Plot de vectores
+plt.quiver(0, 0, C[0, :], C[1, :],
+           angles="xy", scale=1,
+           scale_units="xy", color=["C0"]*10 + ["C1"]*10 + ["C6"]*10)
+for s, coors in zip(df.columns[2:], C[:2, :].T):
+    plt.annotate(s, coors)
+
+plt.xlim(0, 0.5)
+plt.ylim(-0.5, 0.5)
+plt.show()
