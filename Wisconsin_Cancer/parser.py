@@ -2,6 +2,7 @@ import numpy as np
 import pandas as pd
 from sklearn.decomposition import PCA
 import matplotlib.pyplot as plt
+import matplotlib.lines as mlines
 import seaborn as sns
 
 df = pd.read_csv("data/wdbc.data")
@@ -109,12 +110,20 @@ plt.savefig("graphs/cov", dpi=900)
 plt.clf()
 
 # Plot de vectores
+colors = ["C0", "C1", "C2", "C3", "C4", "C5", "C6", "C7", "C8", "C9"]
 plt.quiver(0, 0, C[0, :], C[1, :],
            angles="xy", scale=1,
-           scale_units="xy", color=["C0"]*10 + ["C1"]*10 + ["C6"]*10)
-for s, coors in zip(df.columns[2:], C[:2, :].T):
-    plt.annotate(s, coors)
+           scale_units="xy", color=colors)
+
+legends = []
+for s, color in zip(df.columns[2:12], colors):
+    legends.append(mlines.Line2D([], [], color=color, label=s[3:]))
+
+plt.legend(handles=legends)
+
+# for s, coors in zip(df.columns[2:], C[:2, :].T):
+#     plt.annotate(s, coors)
 
 plt.xlim(0, 0.5)
-plt.ylim(-0.5, 0.5)
+plt.ylim(-0.4, 0.4)
 plt.show()
