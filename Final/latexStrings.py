@@ -71,6 +71,7 @@ def indexedMatrix(M, row_labels, col_labels):
     for col in col_labels:
         s += ' & ' + str(col)
 
+    s += '\\\\'
     s += '\n\\begin{block}{c(' + 'c'*n + ')}\n'
 
     for i in range(m):
